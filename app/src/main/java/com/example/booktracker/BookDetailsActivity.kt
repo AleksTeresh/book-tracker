@@ -13,9 +13,16 @@ class BookDetailsActivity : AppCompatActivity() {
 
         val bookId = intent.getStringExtra(EXTRA_CURR_BOOK_ID)
         PaperClient.getBook(bookId)
-            .subscribe({book ->
-                println("We're half way thereeeee!!!")
-                println(book.name)
-            })
+            .subscribe(
+                {book ->
+                    if (book != null) {
+                        println("We're half way thereeeee!!!")
+                        println(book.name)
+                    }
+                },
+                {error ->
+                    println(error)
+                }
+            )
     }
 }

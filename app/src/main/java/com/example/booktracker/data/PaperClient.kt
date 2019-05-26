@@ -19,9 +19,9 @@ object PaperClient {
         return observeBooks()
     }
 
-    fun getBook(id: String): Flowable<Book> {
+    fun getBook(id: String): Flowable<Book?> {
         return observeBooks()
-            .map { it.filter { it.id == id }.first() }
+            .map { it.filter { it.id == id }.firstOrNull() }
     }
 
     fun deleteBook(bookId: String) {
