@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:id="@+id/bookRow"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content">
+
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/chapterTextView" android:layout_weight="1"
+            android:textSize="18sp" tools:layout_editor_absoluteY="496dp"
+            app:layout_constraintStart_toEndOf="@+id/nameTextView"
+            app:layout_constraintEnd_toStartOf="@+id/deleteButton" app:layout_constraintHorizontal_bias="0.5"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="0dp"
+            android:layout_height="53dp" android:id="@+id/nameTextView" android:layout_weight="1"
+            android:textSize="18sp" tools:layout_editor_absoluteY="486dp"
+            app:layout_constraintEnd_toStartOf="@+id/chapterTextView" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"/>
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_dialog"
+            android:id="@+id/deleteButton"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toEndOf="@+id/chapterTextView" app:layout_constraintHorizontal_bias="0.5"
+            android:layout_marginBottom="16dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:onClick="deleteBook"
+            app:layout_constraintTop_toTopOf="@+id/nameTextView"/>
+</android.support.constraint.ConstraintLayout>

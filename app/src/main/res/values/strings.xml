@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BookTracker</string>
+    <string name="edit_message">Enter the name of your new book</string>
+    <string name="button_send">Create</string>
+</resources>
