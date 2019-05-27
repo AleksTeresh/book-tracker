@@ -2,4 +2,7 @@
     <string name="app_name">BookTracker</string>
     <string name="edit_message">Enter the name of your new book</string>
     <string name="button_send">Create</string>
+    <string name="button_save">Save</string>
+    <string name="current_chapter_text">Current chapter</string>
+    <string name="current_goal_text">Current goal</string>
 </resources>

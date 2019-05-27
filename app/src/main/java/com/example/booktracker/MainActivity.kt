@@ -55,7 +55,8 @@ class MainActivity : AppCompatActivity() {
             Book(
                 uuid,
                 message,
-                0
+                0,
+0
             )
         )
     }

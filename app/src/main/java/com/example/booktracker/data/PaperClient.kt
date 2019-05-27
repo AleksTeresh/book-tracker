@@ -24,6 +24,25 @@ object PaperClient {
             .map { it.filter { it.id == id }.firstOrNull() }
     }
 
+    fun updateBook(updatedBook: Book) {
+        println("Updating the book!!!")
+        paperBook.read<Array<Book>>("books")
+            .flatMapCompletable {
+                books -> paperBook
+                .write(
+                    "books",
+                    books.map {
+                        oldBook ->
+                        if (oldBook.id == updatedBook.id)
+                            updatedBook
+                        else
+                            oldBook
+                    }.toTypedArray()
+                )
+            }
+            .subscribe()
+    }
+
     fun deleteBook(bookId: String) {
         paperBook.read<Array<Book>>("books")
             .flatMapCompletable {
