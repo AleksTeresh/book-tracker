@@ -25,41 +25,41 @@ class CustomListAdapter(
         return dataSource.size
     }
 
-    //2
+
     override fun getItem(position: Int): Any {
         return dataSource[position]
     }
 
-    //3
+
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
-    //4
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        // Get view for row item
         val rowView = inflater.inflate(R.layout.listview_row, parent, false)
+        val book = getItem(position) as Book
 
-        val nameTextField = rowView.findViewById<TextView>(R.id.nameTextView)
-        val chapterNumberField = rowView.findViewById<TextView>(R.id.chapterTextView)
-        val actualRow = rowView.findViewById<ConstraintLayout>(R.id.bookRow)
-        val deleteButton = rowView.findViewById<ImageButton>(R.id.deleteButton)
+        rowView.findViewById<TextView>(R.id.nameTextView).let {
+            it.text = book.name
+        }
+        rowView.findViewById<TextView>(R.id.chapterTextView).let {
+            it.text = book.currentChapter.toString()
+        }
+        rowView.findViewById<ConstraintLayout>(R.id.bookRow).let {
+            it.setOnClickListener {
+                val intent = Intent(context, BookDetailsActivity::class.java).apply {
+                    putExtra(EXTRA_CURR_BOOK_ID, book.id)
+                }
+                context.startActivity(intent)
 
-        var book = getItem(position) as Book
-
-        actualRow.setOnClickListener {
-            val intent = Intent(context, BookDetailsActivity::class.java).apply {
-                putExtra(EXTRA_CURR_BOOK_ID, book.id)
             }
-            context.startActivity(intent)
-
         }
-        deleteButton.setOnClickListener {
-            PaperClient.deleteBook(book.id)
+        rowView.findViewById<ImageButton>(R.id.deleteButton).let {
+            it.setOnClickListener {
+                PaperClient.deleteBook(book.id)
+            }
         }
-
-        nameTextField.text = book.name
-        chapterNumberField.text = book.currentChapter.toString()
 
         return rowView
     }

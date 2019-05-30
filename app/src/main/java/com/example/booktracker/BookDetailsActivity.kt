@@ -12,38 +12,36 @@ import com.example.booktracker.model.Book
 import kotlinx.android.synthetic.main.activity_book_details.*
 
 class BookDetailsActivity : AppCompatActivity() {
-    var currBook: Book? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_details)
 
-        val titleView = findViewById<TextView>(R.id.bookNameTitle)
-        val goalView = findViewById<TextView>(R.id.currentGoalValue)
-        val currChapterView = findViewById<EditText>(R.id.currentChapterValue)
-        val saveButton = findViewById<Button>(R.id.buttonSave)
-
         val bookId = intent.getStringExtra(EXTRA_CURR_BOOK_ID)
         PaperClient.getBook(bookId)
             .subscribe(
                 {book ->
-                    if (book != null) {
-                        currBook = book
-                        titleView.text = book.name
-                        goalView.text = book.currPlannedChapter.toString()
-                        currChapterView.text = Editable.Factory
+                    if (book == null) return@subscribe
+                    findViewById<TextView>(R.id.bookNameTitle).apply {
+                        text = book.name
+                    }
+                    findViewById<TextView>(R.id.currentGoalValue).apply {
+                        text = book.currPlannedChapter.toString()
+                    }
+
+                    findViewById<EditText>(R.id.currentChapterValue).apply {
+                        text = Editable.Factory
                             .getInstance()
                             .newEditable(book.currentChapter.toString())
-
-                        saveButton.setOnClickListener {
-                            val currChapterView = findViewById<EditText>(R.id.currentChapterValue)
-                            val newBook = Book(
+                    }
+                    findViewById<Button>(R.id.buttonSave).setOnClickListener {
+                        findViewById<EditText>(R.id.currentChapterValue).let {
+                            Book(
                                 book.id,
                                 book.name,
-                                currChapterView.text.toString().toInt(),
+                                it.text.toString().toInt(),
                                 book.currPlannedChapter
-                            )
-                            PaperClient.updateBook(newBook)
+                            ).let(PaperClient::updateBook)
                         }
                     }
                 },

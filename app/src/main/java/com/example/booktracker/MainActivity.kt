@@ -36,28 +36,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setBooks(books: List<Book>) {
-        val bookList = findViewById<ListView>(R.id.bookList)
-        val adapter = CustomListAdapter(
-            this,
-            books
-        )
-        bookList.adapter = adapter
-
+        val adapter = CustomListAdapter(this, books)
+        findViewById<ListView>(R.id.bookList).run {
+            this.adapter = adapter
+        }
     }
 
     /** Called when the user taps the Create button */
     fun createBook(view: View) {
-        val editText = findViewById<EditText>(R.id.editText)
-        val message = editText.text.toString()
-        val uuid = UUID.randomUUID().toString()
-        println(uuid)
-        PaperClient.addBook(
-            Book(
-                uuid,
-                message,
-                0,
-0
-            )
-        )
+        val message = findViewById<EditText>(R.id.editText).let {
+            it.text.toString()
+        }
+        Book(
+            UUID.randomUUID().toString(),
+            message,
+            0,
+            0
+        ).let(PaperClient::addBook)
     }
 }
